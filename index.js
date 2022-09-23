@@ -1,48 +1,52 @@
 const main = document.querySelector(".main");
 const cards = document.querySelectorAll(".flip-card")
 const cardsArr = Array.from(cards)
-const cardsInArray = []
-console.log(cardsInArray);
-setInterval(() => {
+let cardsInArray = []
 
-}, 200)
 
 cards.forEach((card) => {
     card.addEventListener("click", () => {
-        checkIf2CardsAreFlipped(card)
+        flipCard(card)
+        cardsInArray.push({"cardElement": card, cardText: `${card.firstElementChild.nextElementSibling.innerHTML}`})
+     
+        if (containsDuplicates(cardsInArray)) {
+            cardsInArray = []
+        } 
+        if (!containsDuplicates(cardsInArray)) {
+                cardsInArray.forEach((card) => {
+                    unFlipCard(card.cardElement)
+                    cardsInArray = []
+                })
+        }
+        
     })
 })
 
-function checkIf2CardsAreFlipped(cardToFlip) {
-    let cardsFlipped = 0;
-    cardToFlip.classList.add("flipped")
-        const cardContent = cardToFlip.firstElementChild.nextElementSibling.innerHTML
-        cardsInArray.push(cardContent)
-        console.log(cardsInArray);
-        cardToFlip.setAttribute("disabled" , true)
-        console.log(cardContent)
+function unflipCards() {
     cardsArr?.filter((card)=> {
-        if (card.classList.contains("flipped")) {
-            if (cardsFlipped > 2) {
-                return 
-            } else {
-                cardsFlipped++
-            }
-        }
+        card.classList.toggle("flipped")
     })
-    if (cardsFlipped > 2) {
-        cardsArr?.filter((card)=> {
-            card.classList.remove("flipped")
-        })
-        cardToFlip?.ClassList?.toggle("flipped")
-       }
-    
-   console.log(cardsFlipped);
 }
+function flipCard(cardToFlip) {
+    cardToFlip.classList.add("flipped")
+}
+function unFlipCard(card) {
+    card.classList.remove("flipped")
+}
+function containsDuplicates(array) {
+    console.log(array);
+    if (array.length >= 1){
+        if (array[0].cardText === array[1].cardText) {
+            return true;
+          }
+          return false;
+    }
+  }
 
-function checkValueOfFlippedCard() {
-    cardsArr.for
-}
+
+// function checkValueOfFlippedCard() {
+//     cardsArr.for
+// }
 
 
 
