@@ -23,6 +23,14 @@ body {
 .flipped { 
         transform: rotateY(180deg)
     }
+    @keyframes flip {
+      from  {
+        Transform: rotateY(0deg)
+      } 
+      to {
+        Transform: rotateY(180deg)
+      }
+    }
 .flip-card-container {
     width: 200px;
     height: 300px;
