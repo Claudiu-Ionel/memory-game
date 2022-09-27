@@ -1,7 +1,6 @@
-const main = document.querySelector(".main");
-
+import {giveRandomValues} from './utils.js'
 const cards_container = document.querySelector(".cards-container")
-
+let blockCalculation = true;
 
 const possibleCardValues = [
   "secret1",
@@ -26,9 +25,8 @@ const possibleCardValues = [
   "secret10",
 ]
 //  flip-card-container flip-card flip-card-front flip-card-back
-function renderCards(hiddenText) { 
+function renderCards(text) { 
   
-  console.log(cards_container);
   const flip_card = document.createElement("div")
   const flip_card_container = document.createElement("div")
   const flip_card_front = document.createElement("div")
@@ -37,26 +35,30 @@ function renderCards(hiddenText) {
   flip_card.classList.add("flip-card")
   flip_card_front.classList.add("flip-card-front")
   flip_card_back.classList.add("flip-card-back")
-  flip_card_back.innerText = `${hiddenText}`
+  flip_card_back.innerText = `${text}`
   flip_card.append(flip_card_front, flip_card_back)
   flip_card_container?.appendChild(flip_card)
   return flip_card_container
 }
 
-
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+shuffleArray(possibleCardValues)
 possibleCardValues.forEach((text) => {
   cards_container.append(renderCards(text))
+  console.log(text);
 })
 
+
 const flipCalculations = async (card) => {
-  if (!card.classList.contains("flipped")) {
-    flipCard(card).then(() => {
-      cardsInArray.push({ "cardElement": card, cardText: `${card.firstElementChild.nextElementSibling.innerHTML}` })
-    }).then(() => {
-      test()
-    })
-
-
+  if (!card.classList.contains("flipped") || cardsInArray.length <= 2) {
+    addToArray(card)
+    flipCard(card)
+  
   }
 
 
@@ -67,36 +69,47 @@ let cardsInArray = []
 
 cards.forEach((card) => {
   card.addEventListener("click", () => flipCalculations(card), true)
+  card.addEventListener("transitionend", test)
 })
 
+function allowCalculations() {
+  console.log("transitionEnd");
+   blockCalculation = true
+}
+async function addToArray(card) {
+  cardsInArray.push({ "cardElement": card, cardText: `${card.firstElementChild.nextElementSibling.innerHTML}` })
+}
 async function flipCard(cardToFlip) {
-  await cardToFlip.classList.add("flipped")
+  if (cardsInArray.length <= 2) {
+    await cardToFlip.classList.add("flipped")
+  }
 }
 function unFlipCard(card) {
   card.classList.remove("flipped")
 }
-function test(card) {
-  setTimeout(() => {
-    if (containsDuplicates(cardsInArray)) {
-      cardsInArray = []
-    }
-    if (!containsDuplicates(cardsInArray)) {
-      cardsInArray.forEach((card) => {
-        unFlipCard(card.cardElement)
-        cardsInArray = []
-      })
-    }
-  }, 1000);
+ function test(card) {
+  console.log(cardsInArray.length);
+  if (cardsInArray.lenght > 1) {
+    containsDuplicates(cardsInArray)
+  }
+    
+  // }, 1000);
 }
 function containsDuplicates(array) {
   console.log(array);
-  if (array.length >= 1) {
+  let result; 
 
-    if (array[0].cardText === array[1].cardText) {
-      return true;
+    if (array[0].cardText === array[1]?.cardText) {
+      result = true
     }
+    if (array[0].cardText !== array[1]?.cardText) {
+    
+      cardsInArray.forEach((card) => {
+        card.classList.remove("flipped")
+      })
+    }
+    
 
-
-  }
+  
 
 }
