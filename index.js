@@ -1,7 +1,32 @@
 import {possibleCardValues, renderCards, shuffleArray} from './utils.js'
+let countdownNum = 0;
 const cards_container = document.querySelector(".cards-container")
-let blockCalculation = true;
+const countdownView = document.querySelector(".countdown");
+const startCounterButton = document.querySelector(".startCounter");
+const stopCounterButton = document.querySelector(".stopCounter");
 
+
+let intervalID ;
+
+
+
+
+const addToTimer = () => {
+  countdownNum++
+  countdownView.innerHTML = countdownNum
+}
+const stopTime = () => {
+clearInterval(intervalID)
+intervalID = null
+}
+function startTime() {
+  console.log("startTime");
+  if (!intervalID) {
+    intervalID = setInterval(() => addToTimer(), 1000);
+  }
+}
+startCounterButton.addEventListener("click", startTime)
+stopCounterButton.addEventListener("click", stopTime)
 
 //  flip-card-container flip-card flip-card-front flip-card-back
 
@@ -67,44 +92,4 @@ function resetVariables() {
   firstCard = null;
   secondCard = null;
 }
-// function allowCalculations() {
-//   console.log("transitionEnd");
-//    blockCalculation = true
-// }
-// async function addToArray(card) {
-//   cardsInArray.push(card)
-// }
-// async function flipCard(cardToFlip) {
-//   if (cardsInArray.length <= 2) {
-//     await cardToFlip.classList.add("flipped")
-//   }
-// }
-// function unFlipCard(card) {
-//   card.classList.remove("flipped")
-// }
-//  function test(card) {
-//   console.log(cardsInArray.length);
-//   if (cardsInArray.lenght > 1) {
-//     containsDuplicates(cardsInArray)
-//   }
-    
-//   // }, 1000);
-// }
-// function containsDuplicates(array) {
-//   console.log(array);
-//   let result; 
 
-//     if (array[0].cardText === array[1]?.cardText) {
-//       result = true
-//     }
-//     if (array[0].cardText !== array[1]?.cardText) {
-    
-//       cardsInArray.forEach((card) => {
-//         card.classList.remove("flipped")
-//       })
-//     }
-    
-
-  
-
-// }
