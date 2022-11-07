@@ -111,4 +111,5 @@ button {
 .countdown{
   display: block;
   width: fit-content;
+  min-height: 16px
 }

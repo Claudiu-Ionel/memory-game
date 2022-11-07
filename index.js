@@ -1,19 +1,37 @@
 import {possibleCardValues, renderCards, shuffleArray} from './utils.js'
-let countdownNum = 0;
+let time = 0;
+let countdown = 4;
+let intervalID ;
+let countdownID;
 const cards_container = document.querySelector(".cards-container")
 const countdownView = document.querySelector(".countdown");
 const startCounterButton = document.querySelector(".startCounter");
 const stopCounterButton = document.querySelector(".stopCounter");
 
 
-let intervalID ;
+
+(function initiateCountdown() {
+  if (!countdownID) {
+    countdownID = setInterval(() => startCountdown(), 1000)
+  }
+})()
+const startCountdown = () => {
+      if(countdown !== 1) {
+        countdown--
+      countdownView.innerHTML = `${countdown}...`
+      } else {
+        clearInterval(countdownID)
+        startTime()
+      }
+}
 
 
-
-
-const addToTimer = () => {
-  countdownNum++
-  countdownView.innerHTML = countdownNum
+const addToTimer = (intervalID) => {
+  if (!intervalID) {
+    time++
+  countdownView.innerHTML = time
+  
+  }
 }
 const stopTime = () => {
 clearInterval(intervalID)
@@ -21,12 +39,9 @@ intervalID = null
 }
 function startTime() {
   console.log("startTime");
-  if (!intervalID) {
     intervalID = setInterval(() => addToTimer(), 1000);
-  }
+  
 }
-startCounterButton.addEventListener("click", startTime)
-stopCounterButton.addEventListener("click", stopTime)
 
 //  flip-card-container flip-card flip-card-front flip-card-back
 
@@ -43,6 +58,8 @@ let firstCard, secondCard;
 let flippedCardBool = false;
 
 let blockBoard = false;
+let nrOfMatchedCards = 0;
+let endGame = false;
 
 cards.forEach((card) => {
   card.addEventListener("click", flipCard)
@@ -74,9 +91,14 @@ function matchCards() {
 }
 
 function disableCards() {
+  nrOfMatchedCards++
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
   resetVariables()
+  console.log(`nrOfMatchedCards, ${nrOfMatchedCards}`);
+  if(nrOfMatchedCards === possibleCardValues.length / 2) {
+    clearInterval(intervalID)
+  }
 }
 function unflipcards() {
   blockBoard = true;
