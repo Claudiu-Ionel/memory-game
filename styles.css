@@ -13,6 +13,15 @@ body {
 button { 
     padding: 10px 5px;
 }
+h4, input, label {
+  margin-bottom: 5px;
+}
+label {
+  align-self: flex-start;
+}
+input {
+  padding: 5px 2px;
+}
 .main {
   position: relative;
   width: 100%;
@@ -109,7 +118,30 @@ button {
   flex-direction: column;
 }
 .countdown{
-  display: block;
+  display: flex;
+  justify-content: center;
   width: fit-content;
-  min-height: 16px
+  min-height: 16px;
+  text-align: center;
+  font-size: 40px;
+
 }
+.user-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  border: 1px solid grey;
+  
+}
+.form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px;
+}
+/* .memory-game-content {
+  display: none;
+} */
