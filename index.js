@@ -1,16 +1,20 @@
 import {possibleCardValues, renderCards, shuffleArray, user} from './utils.js'
+const cards_container = document.querySelector(".cards-container")
+const cards_wrapper = document.querySelector(".cards-wrapper")
+const countdown_container = document.querySelector(".countdown-container")
+const countdownView = document.querySelector(".countdown");
+const submitButton = document.querySelector("#submit-button");
+const userNameInput = document.getElementById("user-name")
+const userForm = document.querySelector(".user-form");
+const messageContainer = document.querySelector(".message-container");
+const messageDiv = document.querySelector(".message");
+// Interval and time variables
 let time = 0;
 let countdown = 4;
 let intervalID ;
 let countdownID;
 
-
-const cards_container = document.querySelector(".cards-container")
-const countdownView = document.querySelector(".countdown");
-const submitButton = document.querySelector("#submit-button");
-const userNameInput = document.getElementById("user-name")
-const userForm = document.querySelector(".user-form");
-
+// event listeners to user form
 submitButton.addEventListener("click", () => {
   console.log(userNameInput.value);
   user.UserName = userNameInput.value
@@ -18,13 +22,18 @@ submitButton.addEventListener("click", () => {
   console.log(user.UserName);
 })
 function rendergame() {
+  cards_wrapper.style.display = "flex"
+// Shuffle the array so that I have them positioned randomly
   shuffleArray(possibleCardValues)
-
+  
+  
   //append the cards to DOM
   possibleCardValues.forEach((text) => {
     cards_container.append(renderCards(text))
   })
   const cards = document.querySelectorAll(".flip-card")
+  const usernameH2 = document.querySelector("h2.username");
+  usernameH2.innerHTML = user.UserName
   cards.forEach((card) => {
     card.addEventListener("click", flipCard)
   })
@@ -32,6 +41,7 @@ function rendergame() {
 
 function initiateCountdown() {
   if (!countdownID) {
+    countdown_container.style.display = "flex"
     countdownID = setInterval(() => startCountdown(), 1000)
 
   }
@@ -73,7 +83,7 @@ function startTime() {
 //  flip-card-container flip-card flip-card-front flip-card-back
 
 
-// Shuffle the array so that I have them positioned randomly
+
 
 
 let firstCard, secondCard;
@@ -117,6 +127,9 @@ function disableCards() {
   console.log(`nrOfMatchedCards, ${nrOfMatchedCards}`);
   if(nrOfMatchedCards === possibleCardValues.length / 2) {
     stopTime()
+    messageContainer.style.display = "flex"
+    messageDiv.innerHTML = `Congratulations ${user.UserName}! 
+    You finished the game in ${time} seconds`
   }
 }
 function unflipcards() {
