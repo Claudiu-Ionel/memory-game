@@ -127,7 +127,7 @@ function disableCards() {
   console.log(`nrOfMatchedCards, ${nrOfMatchedCards}`);
   if(nrOfMatchedCards === possibleCardValues.length / 2) {
     stopTime()
-    messageContainer.style.display = "flex"
+    messageContainer.showModal()
     messageDiv.innerHTML = `Congratulations ${user.UserName}! 
     You finished the game in ${time} seconds`
   }
