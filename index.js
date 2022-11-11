@@ -1,4 +1,4 @@
-import {possibleCardValues, renderCards, shuffleArray, user} from './utils.js'
+import {possibleCardValues, renderCards, shuffleArray, user, pokemonsArrayDoubled} from './utils.js'
 const cards_container = document.querySelector(".cards-container")
 const cards_wrapper = document.querySelector(".cards-wrapper")
 const countdown_container = document.querySelector(".countdown-container")
@@ -22,14 +22,15 @@ submitButton.addEventListener("click", () => {
   console.log(user.UserName);
 })
 function rendergame() {
+
   cards_wrapper.style.display = "flex"
 // Shuffle the array so that I have them positioned randomly
-  shuffleArray(possibleCardValues)
+  shuffleArray(pokemonsArrayDoubled)
   
   
   //append the cards to DOM
-  possibleCardValues.forEach((text) => {
-    cards_container.append(renderCards(text))
+  pokemonsArrayDoubled.forEach((item) => {
+    cards_container.append(renderCards(item.name, item.imgUrl))
   })
   const cards = document.querySelectorAll(".flip-card")
   const usernameH2 = document.querySelector("h2.username");
