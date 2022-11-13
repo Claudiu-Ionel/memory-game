@@ -75,6 +75,7 @@ input {
     height: 250px;
     perspective: 1000px;
     margin: 5px;
+    transition: margin 500ms;
   }
 .flip-card {
     position: relative;
@@ -93,7 +94,8 @@ input {
     backface-visibility: hidden;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    padding-bottom: 10px;
     /* border-radius: 0.5rem; */
   }
 .flip-card-front {
@@ -113,7 +115,7 @@ input {
   top:50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1;
@@ -121,6 +123,10 @@ input {
   height: 50%;
   border: none ;
   background-color: lightblue;
+}
+.surprise-button {
+  margin-bottom: 20px;
+  text-transform: uppercase;
 }
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.795);

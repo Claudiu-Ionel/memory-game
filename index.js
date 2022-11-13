@@ -1,4 +1,4 @@
-import {possibleCardValues, renderCards, shuffleArray, user, pokemonsArrayDoubled} from './utils.js'
+import {possibleCardValues, renderCards, shuffleArray, user, pokemonsArrayDoubled, renderFavoritePokemon} from './utils.js'
 const cards_container = document.querySelector(".cards-container")
 const cards_wrapper = document.querySelector(".cards-wrapper")
 const countdown_container = document.querySelector(".countdown-container")
@@ -8,6 +8,8 @@ const userNameInput = document.getElementById("user-name")
 const userForm = document.querySelector(".user-form");
 const messageContainer = document.querySelector(".message-container");
 const messageDiv = document.querySelector(".message");
+
+
 // Interval and time variables
 let time = 0;
 let countdown = 4;
@@ -38,6 +40,7 @@ function rendergame() {
   cards.forEach((card) => {
     card.addEventListener("click", flipCard)
   })
+  console.log(cards)
 }
 
 function initiateCountdown() {
@@ -128,10 +131,20 @@ function disableCards() {
   console.log(`nrOfMatchedCards, ${nrOfMatchedCards}`);
   if(nrOfMatchedCards === possibleCardValues.length / 2) {
     stopTime()
-    messageContainer.showModal()
-    messageDiv.innerHTML = `Congratulations ${user.UserName}! 
-    You finished the game in ${time} seconds`
+    displayFinalMessage(user.UserName, time)
+    // messageContainer.showModal()
+    // messageDiv.innerHTML = `Congratulations ${user.UserName}! 
+    // You finished the game in ${time} seconds`
   }
+}
+
+function displayFinalMessage(userName, time) {
+  messageContainer.showModal()
+  const surpriseButton = document.querySelector(".surprise-button");
+    messageDiv.innerHTML = `Congratulations ${userName}! 
+    You finished the game in ${time} seconds`
+    surpriseButton.addEventListener("click",renderFavoritePokemon)
+    
 }
 function unflipcards() {
   blockBoard = true;

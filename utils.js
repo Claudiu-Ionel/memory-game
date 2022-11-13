@@ -14,16 +14,17 @@ export const possibleCardValues = [
     "secret6",
     "secret6",
   ]
-
+  
+  const messageContainer = document.querySelector(".message-container");
   // random value used in the apiCall which is added to the offset parameter in the pokemonAPI url
   let pokemonOfSet = Math.ceil(Math.random() * 10)
-
+  let pokemonLimit = 6;
   // example of url for pokemon image - I will use this in the images of the cards
   //https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png
 
 
   export let pokemonsList;
-  const apiCall = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=6&offset=${pokemonOfSet}`)
+  const apiCall = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${pokemonLimit}&offset=${pokemonOfSet}`)
   .then((response) => response.json())
   .then((data) => pokemonsList = data);
   
@@ -57,7 +58,36 @@ export function renderCards(text, ImgUrl) {
   flip_card_container?.appendChild(flip_card)
   return flip_card_container
 }
+export function renderFavoritePokemon() {
+  messageContainer.close()
+  const cards = document.querySelectorAll(".flip-card")
+  const backOfCards = document.querySelectorAll(".flip-card-back")
+  cards.forEach((card) => {
+    card.classList.remove("flipped")
+  })
+  backOfCards.forEach((item) => {
+    item.style.backgroundImage = `url("./93-Haunter.webp")`
+  })
+  flipAllCards()
+  
+}
 
+function flipAllCards() {
+  const cards = document.querySelectorAll(".flip-card")
+  const cardsWrapper = document.querySelectorAll(".flip-card-container")
+
+  console.log("flippAllCards running , cards:" , cards);
+  cards.forEach((card, index) => {
+    setTimeout(() => {
+      card.classList.add("flipped")
+    },500 * index)
+  })
+  setTimeout(()=> {
+    cardsWrapper.forEach((wrapper) => {
+      wrapper.style.margin = "0px"
+    })
+  }, 6000)
+}
 // function that shuffles an array
 export function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
