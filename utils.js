@@ -65,8 +65,9 @@ export function renderFavoritePokemon() {
   cards.forEach((card) => {
     card.classList.remove("flipped")
   })
-  backOfCards.forEach((item) => {
-    item.style.backgroundImage = `url("./93-Haunter.webp")`
+  backOfCards.forEach((item, index) => {
+    item.innerText = ""
+    item.style.backgroundImage = `url("./haunter-sliced_1/haunter-${index+1}.jpg")`
   })
   flipAllCards()
   
