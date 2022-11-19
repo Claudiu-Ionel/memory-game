@@ -10,34 +10,21 @@ body {
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
-  }
-  canvas {
-    position: relative;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
+    background-color: #94312a;
+    
   }
 
-button { 
-    padding: 10px 5px;
-}
-h4, input, label {
-  margin-bottom: 5px;
-}
-label {
-  align-self: flex-start;
-}
-input {
-  padding: 5px 2px;
-}
 .main {
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 100%;
   z-index: 1;
   top: 0;
   left: 0;
   background-color: transparent;
+  display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .cards-wrapper {
     display: none;
@@ -163,11 +150,12 @@ dialog::backdrop {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 40%;
+  height: 40%;
   padding: 40px;
   border: 1px solid grey;
-  
+  background-color: #fff;
+  border-radius: 5px;
 }
 .form-content {
   display: flex;

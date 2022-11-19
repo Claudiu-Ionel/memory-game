@@ -1,13 +1,13 @@
-import {possibleCardValues, renderCards, shuffleArray, user, pokemonsArrayDoubled, renderFavoritePokemon} from './utils.js'
+import {possibleCardValues, renderCards,user, shuffleArray, pokemonsArrayDoubled, renderFavoritePokemon} from './utils.js'
+import {startGame} from "./pokedex.js"
 const cards_container = document.querySelector(".cards-container")
 const cards_wrapper = document.querySelector(".cards-wrapper")
 const countdown_container = document.querySelector(".countdown-container")
 const countdownView = document.querySelector(".countdown");
-const submitButton = document.querySelector("#submit-button");
-const userNameInput = document.getElementById("user-name")
-const userForm = document.querySelector(".user-form");
+const pokedex = document.querySelector(".pokedex-container");
 const messageContainer = document.querySelector(".message-container");
 const messageDiv = document.querySelector(".message");
+const submitButton = document.getElementById("submit-button")
 
 
 // Interval and time variables
@@ -16,13 +16,11 @@ let countdown = 4;
 let intervalID ;
 let countdownID;
 
+
 // event listeners to user form
-submitButton.addEventListener("click", () => {
-  console.log(userNameInput.value);
-  user.UserName = userNameInput.value
-  initiateCountdown()
-  console.log(user.UserName);
-})
+
+submitButton.addEventListener("click", () => startGame(user, initiateCountdown))
+
 function rendergame() {
 
   cards_wrapper.style.display = "flex"
@@ -43,8 +41,9 @@ function rendergame() {
   console.log(cards)
 }
 
-function initiateCountdown() {
+export  function initiateCountdown() {
   if (!countdownID) {
+    pokedex.style.display = "none"  
     countdown_container.style.display = "flex"
     countdownID = setInterval(() => startCountdown(), 1000)
 
@@ -52,7 +51,7 @@ function initiateCountdown() {
 }
 const startCountdown = () => {
       if(countdown !== 1) {
-        userForm.style.display = "none"
+        
         countdown--
         blockBoard = true;
       countdownView.innerHTML = `${countdown}...`
@@ -143,7 +142,7 @@ function displayFinalMessage(userName, time) {
   const surpriseButton = document.querySelector(".surprise-button");
     messageDiv.innerHTML = `Congratulations ${userName}! 
     You finished the game in ${time} seconds`
-    surpriseButton.addEventListener("click",renderFavoritePokemon)
+   surpriseButton.addEventListener("click",renderFavoritePokemon)
     
 }
 function unflipcards() {
