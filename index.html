@@ -1,95 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="pokedex.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="pokedex.css" />
     <title>Memory-Game</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="main">
-        
-            <section class="pokedex-container">
-                <section class="pokedex-top">
-                    <div class="blue-light ">
-                        <div class="inner-light bg-blue"></div>
-                    </div>
-                    <div class="small-circle red-light ">
-                        <div class="inner-light bg-red"></div>
-                </div>
-                    <div class=" small-circle yellow-light ">
-                        <div class=" inner-light bg-yellow"></div>
-                </div>
-                    <div class=" small-circle green-light">
-                        <div class=" inner-light  bg-green"></div>
-                </div>
-                </section>
-                <form class="pokedex-content">
-                    <div class="pokedex-cover"></div>
-                    <div class="screen-edge">
-                        
-                        <div class="screen-top-lights-container">
-                            <div class="small-circle bg-red screen-lights"></div>
-                            <div class="small-circle bg-red screen-lights"></div>
-                        </div>
-                        <div class="pokedex-screen">
-                            <!-- <h4>Type in your user name</h4> -->
-                            <label class="username-label" for="user-name"></label>
-                            <input maxlength="10" id="user-name-input" type="text">
-                        </div>
-                        <div class="small-circle bg-red screen-lights"></div>
-                        <ul class="screen-lines">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                        
-                    </div>
-                    <section class="bottom-buttons">
-                        <button id="submit-button">start</button>
-                        <div class="right-angle-light"></div>
-                        <div class="right-angle-light"></div>
-        
-                        <div class="D-pad-wrapper">
-                            <div class="right-angle D-pad"></div>
-                            <div class="right-angle D-pad"></div>
-                        </div>
-                    </section>
-                    <section class="bottom-screen-wrapper">
-                        <p id="bottom-screen"></p>
-                    </section>
-                </form>
-            </section>
-            <!-- <form class="form-content">
+      <section class="pokedex-container">
+        <section class="pokedex-top">
+          <div class="blue-light">
+            <div class="inner-light bg-blue"></div>
+          </div>
+          <div class="small-circle red-light">
+            <div class="inner-light bg-red"></div>
+          </div>
+          <div class="small-circle yellow-light">
+            <div class="inner-light bg-yellow"></div>
+          </div>
+          <div class="small-circle green-light">
+            <div class="inner-light bg-green"></div>
+          </div>
+        </section>
+        <form class="pokedex-content">
+          <div class="pokedex-cover"></div>
+          <div class="screen-edge">
+            <div class="screen-top-lights-container">
+              <div class="small-circle bg-red screen-lights"></div>
+              <div class="small-circle bg-red screen-lights"></div>
+            </div>
+            <div class="pokedex-screen">
+              <!-- <h4>Type in your user name</h4> -->
+              <label class="username-label" for="user-name"></label>
+              <input maxlength="10" id="user-name-input" type="text" />
+            </div>
+            <div class="small-circle bg-red screen-lights"></div>
+            <ul class="screen-lines">
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+          <section class="bottom-buttons">
+            <button id="submit-button">start</button>
+            <div class="right-angle-light"></div>
+            <div class="right-angle-light"></div>
+
+            <div class="D-pad-wrapper">
+              <div class="right-angle D-pad"></div>
+              <div class="right-angle D-pad"></div>
+            </div>
+          </section>
+          <section class="bottom-screen-wrapper">
+            <p id="bottom-screen"></p>
+          </section>
+        </form>
+      </section>
+      <!-- <form class="form-content">
                 
                 <label for="user-name">User Name</label>
                 <input required id="user-name" type="text">
                 <button id="submit-button" type="submit">Submit</button>
             </form> -->
-        
-        <section class="memory-game-content">
-            <section class="countdown-container">
-                <h2 class="username"></h2>
-                <p class="countdown"></p>
-                
+
+      <section class="memory-game-content">
+        <section class="countdown-container">
+          <h2 class="username"></h2>
+          <p class="countdown"></p>
         </section>
-        <dialog  class="message-container">
-            <div class="message">
-            </div>
-            <button class="surprise-button">surprise!</button>
+        <dialog class="message-container">
+          <div class="message"></div>
+          <button class="surprise-button">surprise!</button>
         </dialog>
         <section class="cards-wrapper">
-            <div class="cards-container"></div>
+          <div class="cards-container"></div>
         </section>
+        <section class="pokemon-stats">
+          <ul class="stats-list"></ul>
+          <button class="reset-game" type="">Reset Game</button>
         </section>
-        
+      </section>
     </div>
-</body>
-<script defer src="index.js" type="module"></script>
-<script defer src="utils.js" type="module"></script>
-<script defer src="pokedex.js" type="module"></script>
+  </body>
+  <script defer src="index.js" type="module"></script>
+  <script defer src="utils.js" type="module"></script>
+  <script defer src="pokedex.js" type="module"></script>
 </html>
-
