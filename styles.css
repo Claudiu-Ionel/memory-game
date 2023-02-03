@@ -57,7 +57,8 @@ body {
   flex-direction: column;
 }
 .reset-game {
-  margin-top: 10px;
+  display: none;
+  margin: 10px auto;
   padding: 8px 5px;
 }
 .stats-list {

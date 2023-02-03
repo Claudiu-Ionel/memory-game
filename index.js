@@ -14,15 +14,15 @@ const submitButton = document.getElementById("submit-button")
 // Interval and time variables
 let time = 0;
 let countdown = 4;
-let intervalID;
+export let intervalID;
 let countdownID;
-
+let showModalAgain = true;
 
 // event listeners to user form
 
-submitButton.addEventListener("click", () => startGame(user, initiateCountdown))
+submitButton.addEventListener("click", (event) => startGame(event, user, initiateCountdown))
 
-function rendergame() {
+export function renderGame() {
 
   cards_wrapper.style.display = "flex"
 
@@ -40,10 +40,10 @@ function rendergame() {
   cards.forEach((card) => {
     card.addEventListener("click", flipCard)
   })
-  console.log(cards)
 }
 
 export function initiateCountdown() {
+  console.log(countdownID)
   if (!countdownID) {
     pokedex.style.display = "none"
     countdown_container.style.display = "flex"
@@ -52,34 +52,37 @@ export function initiateCountdown() {
 
   }
 }
-const startCountdown = () => {
+export const startCountdown = () => {
   if (countdown !== 1) {
     countdown--
     blockBoard = true;
     countdownView.innerHTML = `${countdown}...`
   } else {
     countdownView.innerHTML = `GO`
-    rendergame()
+    renderGame()
     clearInterval(countdownID)
+    countdownID = null
     startTime()
 
   }
 }
 
 
-const addToTimer = (intervalID) => {
+export const addToTimer = (intervalID) => {
   if (!intervalID) {
     time++
     countdownView.innerHTML = `${time}s`
 
   }
 }
-const stopTime = () => {
+export const stopTime = () => {
+  console.log("stopTime Func");
+  console.log(intervalID);
   clearInterval(intervalID)
   intervalID = null
 }
-function startTime() {
-  console.log("startTime");
+export function startTime() {
+  console.log("startTime Func");
   time = 0
   blockBoard = false
   intervalID = setInterval(() => addToTimer(), 1000);
@@ -110,19 +113,16 @@ function flipCard() {
   if (!flippedCardBool) {
     flippedCardBool = true
     firstCard = this
-    console.log("firstCard:", firstCard);
     return
   }
   secondCard = this
-  console.log("secondCard:", secondCard);
   matchCards()
 }
 
 function matchCards() {
 
   let isMatch = firstCard.dataset.secret === secondCard.dataset.secret;
-  isMatch ? disableCards() : unflipcards()
-  console.log(`matchCards func: isMatch = ${isMatch}`)
+  isMatch ? disableCards() : unflipCards()
 }
 
 function disableCards() {
@@ -130,10 +130,10 @@ function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
   resetVariables()
-  console.log(`nrOfMatchedCards, ${nrOfMatchedCards}`);
   if (nrOfMatchedCards === possibleCardValues.length / 2) {
     stopTime()
-    displayFinalMessage(user.UserName, time)
+    nrOfMatchedCards = 0
+    showModalAgain && displayFinalMessage(user.UserName, time)
     // messageContainer.showModal()
     // messageDiv.innerHTML = `Congratulations ${user.UserName}! 
     // You finished the game in ${time} seconds`
@@ -141,6 +141,7 @@ function disableCards() {
 }
 
 function displayFinalMessage(userName, time) {
+  showModalAgain = false
   messageContainer.showModal()
   const surpriseButton = document.querySelector(".surprise-button");
   messageDiv.innerHTML = `Congratulations ${userName}! 
@@ -148,7 +149,7 @@ function displayFinalMessage(userName, time) {
   surpriseButton.addEventListener("click", renderFavoritePokemon)
 
 }
-function unflipcards() {
+function unflipCards() {
   blockBoard = true;
   setTimeout(() => {
     firstCard.classList.remove("flipped");

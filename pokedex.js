@@ -12,9 +12,9 @@ function abortFuncExecution() {
   throw new Error("function abort")
 }
 
-export function startGame(userObj, func) {
+export function startGame(event, userObj, func) {
 
-  const username = usernameInput.value
+  const username = userObj.userName || usernameInput.value
 
   event.preventDefault()
   if (typing) return

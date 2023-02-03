@@ -25,7 +25,7 @@
             <div class="inner-light bg-green"></div>
           </div>
         </section>
-        <form class="pokedex-content">
+        <form onsubmit="return false;" class="pokedex-content">
           <div class="pokedex-cover"></div>
           <div class="screen-edge">
             <div class="screen-top-lights-container">
@@ -46,7 +46,7 @@
             </ul>
           </div>
           <section class="bottom-buttons">
-            <button id="submit-button">start</button>
+            <button type="button" id="submit-button">start</button>
             <div class="right-angle-light"></div>
             <div class="right-angle-light"></div>
 
@@ -81,12 +81,12 @@
         </section>
         <section class="pokemon-stats">
           <ul class="stats-list"></ul>
-          <button class="reset-game" type="">Reset Game</button>
         </section>
+        <button class="reset-game" type="">Reset Game</button>
       </section>
     </div>
   </body>
-  <script defer src="index.js" type="module"></script>
   <script defer src="utils.js" type="module"></script>
+  <script defer src="index.js" type="module"></script>
   <script defer src="pokedex.js" type="module"></script>
 </html>

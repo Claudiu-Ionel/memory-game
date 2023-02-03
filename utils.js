@@ -1,3 +1,6 @@
+import { startGame } from "./pokedex.js"
+import { initiateCountdown, intervalID } from "./index.js";
+
 // this was used to test the matching system in the cards
 
 export const possibleCardValues = [
@@ -29,11 +32,7 @@ export const user = {
 }
 
 const messageContainer = document.querySelector(".message-container");
-// random value used in the apiCall which is added to the offset parameter in the pokemonAPI url
-let pokemonOfSet = Math.ceil(Math.random() * 10)
-let pokemonLimit = 6;
-// example of url for pokemon image - I will use this in the images of the cards
-//https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png
+
 
 
 export let pokemonsList;
@@ -41,6 +40,11 @@ export let pokemonsArray;
 export let pokemonsArrayDoubled;
 
 async function fetchPokemonData() {
+  // random value used in the apiCall which is added to the offset parameter in the pokemonAPI url
+  let pokemonOfSet = Math.ceil(Math.random() * 10)
+  let pokemonLimit = 6;
+  // example of url for pokemon image - I will use this in the images of the cards
+  //https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png
   await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${pokemonLimit}&offset=${pokemonOfSet}`)
     .then((response) => response.json())
     .then((data) => pokemonsList = data);
@@ -78,6 +82,7 @@ export function renderCards(text, ImgUrl) {
   flip_card_container?.appendChild(flip_card)
   return flip_card_container
 }
+
 export function renderFavoritePokemon() {
   messageContainer.close()
   const cards = document.querySelectorAll(".flip-card")
@@ -93,17 +98,20 @@ export function renderFavoritePokemon() {
   flipAllCards()
 
 }
+
 function pokemonStats(container, data) {
   const listItem = document.createElement("li")
   listItem.innerHTML = `<div>${data.stat.name}: <span>${data.base_stat}</span></div>`
   container.append(listItem)
 }
+
 async function flipAllCards() {
   const cards = document.querySelectorAll(".flip-card")
   const cards_container = document.querySelector(".cards-container")
   const cards_wrapper = document.querySelector(".cards-wrapper")
   const pokemon_stats = document.querySelector(".pokemon-stats")
   const stats_list = document.querySelector(".stats-list")
+  const reset_game_button = document.querySelector(".reset-game")
 
   await fetch(`https://pokeapi.co/api/v2/pokemon/haunter`)
     .then((response) => response.json())
@@ -119,9 +127,32 @@ async function flipAllCards() {
     }, 500 * index)
   })
   setTimeout(() => {
-    cards_container.classList.toggle("resized")
-    cards_container.style.gap = "0px"
-    cards_wrapper.style.height = "fit-content"
-    pokemon_stats.style.display = "flex"
+    cards_container.classList.add("resized")
+    cards_container.style.gap = "0px";
+    cards_wrapper.style.height = "fit-content";
+    pokemon_stats.style.display = "flex";
+    reset_game_button.style.display = "flex";
+    reset_game_button.addEventListener("click", async (event) => resetGame(event, cards_container, pokemon_stats));
   }, 6000)
+
+}
+
+const resetGame = async (event, cardsContainer, statsContainer) => {
+  if (!intervalID) {
+    try {
+      await fetchPokemonData()
+      cardsContainer.innerHTML = ``;
+      cardsContainer.style.gap = "10px"
+      cardsContainer.classList.remove("resized")
+      statsContainer.style.display = "none"
+      user.UserTime = 0;
+      initiateCountdown()
+
+    } catch (error) {
+      console.log(error)
+    }
+  } else {
+    console.log("game not finished")
+  }
+
 }
