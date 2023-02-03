@@ -70,7 +70,7 @@ const startCountdown = () => {
 const addToTimer = (intervalID) => {
   if (!intervalID) {
     time++
-    countdownView.innerHTML = time
+    countdownView.innerHTML = `${time}s`
 
   }
 }
@@ -80,6 +80,7 @@ const stopTime = () => {
 }
 function startTime() {
   console.log("startTime");
+  time = 0
   blockBoard = false
   intervalID = setInterval(() => addToTimer(), 1000);
 
