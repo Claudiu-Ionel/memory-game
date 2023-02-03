@@ -120,6 +120,9 @@ body {
     background-position: center;
     object-fit:fill;
   }
+.bg-size-cover {
+  background-size: cover;
+}
 .message-container {
   position:absolute;
   top:50%;

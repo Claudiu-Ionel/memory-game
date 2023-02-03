@@ -68,6 +68,7 @@ export function renderFavoritePokemon() {
   backOfCards.forEach((item, index) => {
     item.innerText = ""
     item.style.backgroundImage = `url("./haunter-sliced_1/haunter-${index + 1}.jpg")`
+    item.classList.toggle("bg-size-cover")
   })
   flipAllCards()
 
