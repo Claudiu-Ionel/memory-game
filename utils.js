@@ -41,13 +41,19 @@ export let pokemonsArrayDoubled;
 
 async function fetchPokemonData() {
   // random value used in the apiCall which is added to the offset parameter in the pokemonAPI url
-  let pokemonOfSet = Math.ceil(Math.random() * 10)
+  let pokemonOfSet = Math.ceil(Math.random() * 10 + 6)
   let pokemonLimit = 6;
   // example of url for pokemon image - I will use this in the images of the cards
   //https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png
-  await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${pokemonLimit}&offset=${pokemonOfSet}`)
-    .then((response) => response.json())
-    .then((data) => pokemonsList = data);
+  if (pokemonsList) {
+    await fetch(`${pokemonsList.next}`)
+      .then((response) => response.json())
+      .then((data) => pokemonsList = data);
+  } else {
+    await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${pokemonLimit}&offset=${pokemonOfSet}`)
+      .then((response) => response.json())
+      .then((data) => pokemonsList = data);
+  }
   // map over the array in order to add a key "imgUrl" so that I can use them in the start of the game
 
   pokemonsArray = pokemonsList?.results?.map((item) => {
@@ -62,6 +68,7 @@ async function fetchPokemonData() {
 
   // needed to double the contents in the array to create matches for the cards
   pokemonsArrayDoubled = [...pokemonsArray, ...pokemonsArray]
+  console.log(pokemonsList);
 }
 fetchPokemonData();
 
